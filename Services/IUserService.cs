@@ -9,6 +9,6 @@ namespace RegistrationWizard.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns>Error message if exist. Otherwise empty string</returns>
-        public Task<string> CreateNewUser(RegistrationRequestDTO request);
+        public Task<string> CreateNewUser(RegistrationRequestDTO request, CancellationToken cancellationToken);
     }
 }

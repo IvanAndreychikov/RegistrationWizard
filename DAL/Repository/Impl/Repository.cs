@@ -15,44 +15,44 @@ namespace RegistrationWizard.DAL.Repository.Impl
             _disposed = false;
         }
 
-        public async Task<IList<T>> GetAllAsync(params Expression<Func<T, object>>[] propertiesToJoin)
+        public async Task<IList<T>> GetAllAsync(CancellationToken cancellationToken, params Expression<Func<T, object>>[] propertiesToJoin)
         {
             var query = PrepareQueryWithJoins(propertiesToJoin);
-            return await query.ToListAsync();
+            return await query.ToListAsync(cancellationToken);
         }
 
-        public async Task<T?> GetByIdAsync(int id, params Expression<Func<T, object>>[] propertiesToJoin)
+        public async Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken, params Expression<Func<T, object>>[] propertiesToJoin)
         {
             var query = PrepareQueryWithJoins(propertiesToJoin);
-            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id, cancellationToken);
         }
-        public async Task<IList<T>> GetByPredicateAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] propertiesToJoin)
+        public async Task<IList<T>> GetByPredicateAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken, params Expression<Func<T, object>>[] propertiesToJoin)
         {
             var query = PrepareQueryWithJoins(propertiesToJoin);
             var filteredResult = query.Where(predicate);
 
-            return await filteredResult.ToListAsync();
+            return await filteredResult.ToListAsync(cancellationToken);
         }
 
-        public async Task AddAsync(T entity)
+        public async Task AddAsync(T entity, CancellationToken cancellationToken)
         {
-            await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _context.Set<T>().AddAsync(entity, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity, CancellationToken cancellationToken)
         {
             _context.Set<T>().Update(entity);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            var entity = await this.GetByIdAsync(id);
+            var entity = await this.GetByIdAsync(id, cancellationToken);
             if (entity != null)
             {
                 _context.Set<T>().Remove(entity);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
             }
         }
 

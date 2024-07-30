@@ -19,9 +19,9 @@ namespace RegistrationWizard.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegistrationRequestDTO request)
+        public async Task<IActionResult> Register([FromBody] RegistrationRequestDTO request, CancellationToken cancellationToken)
         {
-            var errorMessage = await _userService.CreateNewUser(request);
+            var errorMessage = await _userService.CreateNewUser(request, cancellationToken);
             return string.IsNullOrEmpty(errorMessage) ? Ok() : BadRequest(errorMessage);
         }
     }

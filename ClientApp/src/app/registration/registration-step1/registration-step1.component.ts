@@ -3,13 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../registration.service';
 
-export interface Step1Data {
-  login: string;
-  password: string;
-  confirmPassword: number;
-  agree: boolean;
-}
-
 @Component({
   selector: 'app-registration-step1',
   templateUrl: './registration-step1.component.html',

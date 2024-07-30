@@ -14,7 +14,7 @@ namespace RegistrationWizard.Services.Impl
         {
             _userRepository = userRepository;
         }
-        public async Task<string> CreateNewUser(RegistrationRequestDTO request)
+        public async Task<string> CreateNewUser(RegistrationRequestDTO request, CancellationToken cancellationToken)
         {
             byte[] saltBytes = GenerateSalt();
             string hashedPassword = HashPassword(request.Password, saltBytes);
@@ -32,7 +32,7 @@ namespace RegistrationWizard.Services.Impl
             };
             try
             {
-                await _userRepository.AddAsync(user);
+                await _userRepository.AddAsync(user, cancellationToken);
                 return "";
             }
             catch (DbUpdateException ex)

@@ -4,6 +4,6 @@ namespace RegistrationWizard.Services
 {
     public interface IProvinceService
     {
-        public Task<IEnumerable<ProvinceDTO>> GetByCountryId(int countryId);
+        public Task<IEnumerable<ProvinceDTO>> GetByCountryId(int countryId, CancellationToken cancellationToken);
     }
 }

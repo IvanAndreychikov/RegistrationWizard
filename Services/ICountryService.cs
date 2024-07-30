@@ -4,6 +4,6 @@ namespace RegistrationWizard.Services
 {
     public interface ICountryService
     {
-        public Task<IEnumerable<CountryDTO>> GetAll();
+        public Task<IEnumerable<CountryDTO>> GetAll(CancellationToken cancellationToken);
     }
 }

@@ -12,9 +12,9 @@ namespace RegistrationWizard.Services.Impl
         {
             _countryRepository = countryRepository;
         }
-        public async Task<IEnumerable<CountryDTO>> GetAll()
+        public async Task<IEnumerable<CountryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _countryRepository.GetAllAsync();
+            var result = await _countryRepository.GetAllAsync(cancellationToken);
             return result.Select(c => new CountryDTO { Id = c.Id, Name = c.Name });
         }
     }

@@ -18,6 +18,9 @@ namespace RegistrationWizard.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CountryDTO>> Get() => await _countryService.GetAll();
+        public async Task<IEnumerable<CountryDTO>> Get(CancellationToken cancellationToken)
+        {
+            return await _countryService.GetAll(cancellationToken);
+        }
     }
 }

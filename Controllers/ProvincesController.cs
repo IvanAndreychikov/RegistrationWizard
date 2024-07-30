@@ -18,9 +18,9 @@ namespace RegistrationWizard.Controllers
         }
 
         [HttpGet("{countryId:int}")]
-        public async Task<IEnumerable<ProvinceDTO>> GetByCountryId(int countryId)
+        public async Task<IEnumerable<ProvinceDTO>> GetByCountryId(int countryId, CancellationToken cancellationToken)
         {
-            return await _provinceService.GetByCountryId(countryId);
+            return await _provinceService.GetByCountryId(countryId, cancellationToken);
         }
     }
 }
